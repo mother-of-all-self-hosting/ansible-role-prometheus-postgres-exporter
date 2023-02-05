@@ -9,7 +9,7 @@ traefik.docker.network={{ prometheus_postgres_exporter_container_labels_traefik_
 {# Middlewares #}
 traefik.http.middlewares.{{ prometheus_postgres_exporter_identifier }}-replacepath.replacepath.path=/metrics
 {% if prometheus_postgres_exporter_basicauth_enabled %}
-traefik.http.middlewares.{{ prometheus_postgres_exporter_identifier }}-auth.basicauth.users={{ lookup('ansible.builtin.file', prometheus_postgres_exporter_basicauth_file) }}
+traefik.http.middlewares.{{ prometheus_postgres_exporter_identifier }}-auth.basicauth.users={{ prometheus_postgres_exporter_basicauth_file_contents }}
 {% endif %}
 
 traefik.http.routers.{{ prometheus_postgres_exporter_identifier }}.rule={{ prometheus_postgres_exporter_container_labels_traefik_rule }}
