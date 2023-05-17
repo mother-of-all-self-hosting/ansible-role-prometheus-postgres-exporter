@@ -38,6 +38,7 @@ prometheus_postgres_exporter_database_password: 'some-password'
 prometheus_postgres_exporter_database_hostname: ''
 prometheus_postgres_exporter_database_port: 5432
 prometheus_postgres_exporter_database_name: 'prometheus_postgres_exporter'
+prometeus_postgres_exporter_database_ssl: false
 
 # Controls the PG_EXPORTER_AUTO_DISCOVER_DATABASES environment variable
 prometheus_postgres_exporter_env_variable_pg_exporter_auto_discover_databases: true
@@ -46,7 +47,7 @@ prometheus_postgres_exporter_env_variable_pg_exporter_auto_discover_databases: t
 prometheus_postgres_exporter_env_variable_pg_exporter_web_listen_address: ":{{ prometheus_postgres_exporter_port }}"
 
 # Controls the DATA_SOURCE_NAME environment variable
-prometheus_postgres_exporter_env_variable_data_source_name: "postgresql://{{ prometheus_postgres_exporter_database_username }}:{{ prometheus_postgres_exporter_database_password }}@{{ prometheus_postgres_exporter_database_hostname }}:5432/{{ prometheus_postgres_exporter_database_name }}?sslmode=disable"
+prometheus_postgres_exporter_env_variable_data_source_name: "postgresql://{{ prometheus_postgres_exporter_database_username }}:{{ prometheus_postgres_exporter_database_password }}@{{ prometheus_postgres_exporter_database_hostname }}:5432/{{ prometheus_postgres_exporter_database_name }}{{ postgres_exporter_database_hostname }}:{{ postgres_exporter_database_port }}/{{ postgres_exporter_database_name }}{{ '?sslmode=disable' if not prometeus_postgres_exporter_database_ssl else '' }}"
 
 # Additional environment variables to pass to the container
 #
