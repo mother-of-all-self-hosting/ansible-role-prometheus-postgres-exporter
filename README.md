@@ -9,3 +9,9 @@ This role *implicitly* depends on:
 
 
 > **NOTE**: check [defaults/main.yml](./defaults/main.yml) to see full list of config options
+
+# Integrate with Grafana
+
+You can use the dasboard [9628](https://grafana.com/grafana/dashboards/9628-postgresql-database/) to visualize the data in Grafana. The varaible `prometheus_postgres_exporter_dashboard_urls` might help you.
+
+![A grafana dashboard showing connection data, commits to the database and more](assets/grafana_screenshot.jpeg)
