@@ -11,7 +11,7 @@ prometheus_postgres_exporter_gid: ''
 prometheus_postgres_exporter_server_fqn: ''
 prometheus_postgres_exporter_path_prefix: "/metrics/postgres-exporter"
 
-prometheus_postgres_exporter_version: v0.12.0
+prometheus_postgres_exporter_version: v0.13.0
 prometheus_postgres_exporter_port: 9187
 
 prometheus_postgres_exporter_docker_image: "{{ prometheus_postgres_exporter_docker_image_name_prefix }}prometheuscommunity/postgres-exporter:{{ prometheus_postgres_exporter_version }}"
