@@ -58,7 +58,10 @@ prometheus_postgres_exporter_env_variable_data_source_name: "postgresql://{{ pro
 prometheus_postgres_exporter_environment_variables_extension: ''
 
 # List of systemd services that prometheus-postgres-exporter.service depends on
-prometheus_postgres_exporter_systemd_required_services_list: ['docker.service']
+prometheus_postgres_exporter_systemd_required_services_list: "{{ prometheus_postgres_exporter_systemd_required_services_list_default + prometheus_postgres_exporter_systemd_required_services_list_auto + prometheus_postgres_exporter_systemd_required_services_list_custom }}"
+prometheus_postgres_exporter_systemd_required_services_list_default: ['docker.service']
+prometheus_postgres_exporter_systemd_required_services_list_auto: []
+prometheus_postgres_exporter_systemd_required_services_list_custom: []
 
 # List of systemd services that prometheus-postgres-exporter.service wants
 prometheus_postgres_exporter_systemd_wanted_services_list: []
