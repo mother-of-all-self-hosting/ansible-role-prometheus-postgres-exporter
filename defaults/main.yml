@@ -22,6 +22,7 @@ prometheus_postgres_exporter_docker_image_force_pull: "{{ prometheus_postgres_ex
 prometheus_postgres_exporter_base_path: "/{{ prometheus_postgres_exporter_identifier }}"
 
 # enable basic auth
+# Also see `prometheus_postgres_exporter_container_labels_metrics_middleware_basic_auth_enabled` for an alternative implementation.
 prometheus_postgres_exporter_basicauth_enabled: false
 # temporary file name on the host that runs ansible
 prometheus_postgres_exporter_basicauth_file_tmp: "/tmp/ansible_htpasswd"
@@ -85,6 +86,9 @@ prometheus_postgres_exporter_container_labels_traefik_rule: "Host(`{{ prometheus
 prometheus_postgres_exporter_container_labels_traefik_entrypoints: web-secure
 prometheus_postgres_exporter_container_labels_traefik_tls: "{{ prometheus_postgres_exporter_container_labels_traefik_entrypoints != 'web' }}"
 prometheus_postgres_exporter_container_labels_traefik_tls_certResolver: default  # noqa var-naming
+prometheus_postgres_exporter_container_labels_metrics_middleware_basic_auth_enabled: false
+# See: https://doc.traefik.io/traefik/middlewares/http/basicauth/#users
+prometheus_postgres_exporter_container_labels_metrics_middleware_basic_auth_users: ''
 
 # prometheus_postgres_exporter_container_labels_additional_labels contains a multiline string with additional labels to add to the container label file.
 # See `../templates/labels.j2` for details.
