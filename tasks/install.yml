@@ -79,6 +79,6 @@
 
 - name: Ensure prometheus-postgres-exporter systemd service installed
   ansible.builtin.template:
-    src: "{{ role_path }}/templates/prometheus-postgres-exporter.service.j2"
+    src: "{{ role_path }}/templates/systemd/prometheus-postgres-exporter.service.j2"
     dest: "{{ devture_systemd_docker_base_systemd_path }}/{{ prometheus_postgres_exporter_identifier }}.service"
     mode: 0644
