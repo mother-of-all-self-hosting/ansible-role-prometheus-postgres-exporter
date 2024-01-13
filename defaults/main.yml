@@ -85,7 +85,7 @@ prometheus_postgres_exporter_container_additional_networks: []
 # To inject your own other container labels, see `prometheus_postgres_exporter_container_labels_additional_labels`.
 prometheus_postgres_exporter_container_labels_traefik_enabled: true
 prometheus_postgres_exporter_container_labels_traefik_docker_network: "{{ prometheus_postgres_exporter_container_network }}"
-prometheus_postgres_exporter_container_labels_traefik_rule: "Host(`{{ prometheus_postgres_exporter_server_fqn }}`) && PathPrefix(`{{ prometheus_postgres_exporter_path_prefix | quote }}`)"
+prometheus_postgres_exporter_container_labels_traefik_rule: "Host(`{{ prometheus_postgres_exporter_hostname }}`) && PathPrefix(`{{ prometheus_postgres_exporter_path_prefix | quote }}`)"
 prometheus_postgres_exporter_container_labels_traefik_entrypoints: web-secure
 prometheus_postgres_exporter_container_labels_traefik_tls: "{{ prometheus_postgres_exporter_container_labels_traefik_entrypoints != 'web' }}"
 prometheus_postgres_exporter_container_labels_traefik_tls_certResolver: default  # noqa var-naming
