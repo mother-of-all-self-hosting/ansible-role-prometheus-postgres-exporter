@@ -9,11 +9,6 @@ traefik.http.services.{{ prometheus_postgres_exporter_identifier }}.loadbalancer
 
 {% set middlewares = [] %}
 
-{% if prometheus_postgres_exporter_basicauth_enabled %}
-{% set middlewares = middlewares + [prometheus_postgres_exporter_identifier + '-legacy-auth'] %}
-traefik.http.middlewares.{{ prometheus_postgres_exporter_identifier }}-legacy-auth.basicauth.users={{ prometheus_postgres_exporter_basicauth_file_contents }}
-{% endif %}
-
 {% if prometheus_postgres_exporter_container_labels_metrics_middleware_basic_auth_enabled %}
 {% set middlewares = middlewares + [prometheus_postgres_exporter_identifier + '-basic-auth'] %}
 traefik.http.middlewares.{{ prometheus_postgres_exporter_identifier }}-basic-auth.basicauth.users={{ prometheus_postgres_exporter_container_labels_metrics_middleware_basic_auth_users }}
