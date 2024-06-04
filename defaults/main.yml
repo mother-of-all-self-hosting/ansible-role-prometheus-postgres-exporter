@@ -47,7 +47,7 @@ prometheus_postgres_exporter_environment_variables_extension: ''
 
 # List of systemd services that prometheus-postgres-exporter.service depends on
 prometheus_postgres_exporter_systemd_required_services_list: "{{ prometheus_postgres_exporter_systemd_required_services_list_default + prometheus_postgres_exporter_systemd_required_services_list_auto + prometheus_postgres_exporter_systemd_required_services_list_custom }}"
-prometheus_postgres_exporter_systemd_required_services_list_default: ['docker.service']
+prometheus_postgres_exporter_systemd_required_services_list_default: "{{ [devture_systemd_docker_base_docker_service_name] if devture_systemd_docker_base_docker_service_name else [] }}"
 prometheus_postgres_exporter_systemd_required_services_list_auto: []
 prometheus_postgres_exporter_systemd_required_services_list_custom: []
 
