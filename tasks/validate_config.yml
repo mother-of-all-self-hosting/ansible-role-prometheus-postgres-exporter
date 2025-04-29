@@ -18,6 +18,11 @@
     - {'old': 'prometheus_postgres_exporter_basicauth_print', 'new': '<removed>'}
     - {'old': 'prometheus_postgres_exporter_basicauth_file_contents', 'new': '<removed>'}
     - {'old': 'prometheus_postgres_exporter_docker_image_name_prefix', 'new': 'prometheus_postgres_exporter_docker_image_registry_prefix'}
+    - {'old': 'prometheus_postgres_exporter_docker_image', 'new': 'prometheus_postgres_exporter_container_image'}
+    - {'old': 'prometheus_postgres_exporter_docker_image_registry_prefix', 'new': 'prometheus_postgres_exporter_container_image_registry_prefix'}
+    - {'old': 'prometheus_postgres_exporter_docker_image_registry_prefix_upstream', 'new': 'prometheus_postgres_exporter_container_image_registry_prefix_upstream'}
+    - {'old': 'prometheus_postgres_exporter_docker_image_registry_prefix_upstream_default', 'new': 'prometheus_postgres_exporter_container_image_registry_prefix_upstream_default'}
+    - {'old': 'prometheus_postgres_exporter_docker_image_force_pull', 'new': 'prometheus_postgres_exporter_container_image_force_pull'}
 
 - name: Fail if required prometheus-postgres-exporter settings not defined
   ansible.builtin.fail:
