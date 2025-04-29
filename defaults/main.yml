@@ -18,6 +18,7 @@ prometheus_postgres_exporter_enabled: true
 prometheus_postgres_exporter_identifier: prometheus-postgres-exporter
 prometheus_postgres_exporter_base_path: "/{{ prometheus_postgres_exporter_identifier }}"
 
+# renovate: datasource=docker depName=quay.io/prometheuscommunity/postgres-exporter versioning=semver
 prometheus_postgres_exporter_version: v0.14.0
 
 prometheus_postgres_exporter_uid: ''
