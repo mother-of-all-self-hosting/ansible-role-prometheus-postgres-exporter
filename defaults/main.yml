@@ -31,7 +31,7 @@ prometheus_postgres_exporter_hostname: ''
 # This value must either be `/` or not end with a slash.
 prometheus_postgres_exporter_path_prefix: "/metrics/postgres-exporter"
 
-prometheus_postgres_exporter_container_image: "{{ prometheus_postgres_exporter_docker_image_registry_prefix }}prometheuscommunity/postgres-exporter:{{ prometheus_postgres_exporter_version }}"
+prometheus_postgres_exporter_container_image: "{{ prometheus_postgres_exporter_container_image_registry_prefix }}prometheuscommunity/postgres-exporter:{{ prometheus_postgres_exporter_version }}"
 prometheus_postgres_exporter_container_image_tag: "{{ prometheus_postgres_exporter_version }}"
 prometheus_postgres_exporter_container_image_registry_prefix: "{{ prometheus_postgres_exporter_container_image_registry_prefix_upstream }}"
 prometheus_postgres_exporter_container_image_registry_prefix_upstream: "{{ prometheus_postgres_exporter_container_image_registry_prefix_upstream_default }}"
