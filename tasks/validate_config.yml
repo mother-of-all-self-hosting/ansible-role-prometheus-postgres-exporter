@@ -23,6 +23,7 @@
     - {'old': 'prometheus_postgres_exporter_docker_image_registry_prefix_upstream', 'new': 'prometheus_postgres_exporter_container_image_registry_prefix_upstream'}
     - {'old': 'prometheus_postgres_exporter_docker_image_registry_prefix_upstream_default', 'new': 'prometheus_postgres_exporter_container_image_registry_prefix_upstream_default'}
     - {'old': 'prometheus_postgres_exporter_docker_image_force_pull', 'new': 'prometheus_postgres_exporter_container_image_force_pull'}
+    - {'old': 'prometheus_postgres_exporter_environment_variables_extension', 'new': 'prometheus_postgres_exporter_environment_variables_additional_variables'}
 
 - name: Fail if required prometheus-postgres-exporter settings not defined
   ansible.builtin.fail:
