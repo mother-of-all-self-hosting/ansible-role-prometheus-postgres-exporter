@@ -4,11 +4,14 @@
 
 ---
 
-- block:
-    - when: prometheus_postgres_exporter_enabled | bool
+- name: Perform prometheus-postgres-exporter installation tasks
+  block:
+    - name: Validate prometheus-postgres-exporter configuration
+      when: prometheus_postgres_exporter_enabled | bool
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
 
-    - when: prometheus_postgres_exporter_enabled | bool
+    - name: Install prometheus-postgres-exporter
+      when: prometheus_postgres_exporter_enabled | bool
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/install.yml"
   tags:
     - setup-all
@@ -16,8 +19,10 @@
     - install-all
     - install-prometheus-postgres-exporter
 
-- block:
-    - when: not prometheus_postgres_exporter_enabled | bool
+- name: Perform prometheus-postgres-exporter uninstallation tasks
+  block:
+    - name: Uninstall prometheus-postgres-exporter
+      when: not prometheus_postgres_exporter_enabled | bool
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/uninstall.yml"
   tags:
     - setup-all
