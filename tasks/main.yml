@@ -3,21 +3,21 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ---
-- name: Perform prometheus-postgres-exporter installation tasks
+- name: Perform Prometheus Postgres exporter installation tasks
   tags:
     - setup-all
     - setup-prometheus-postgres-exporter
     - install-all
     - install-prometheus-postgres-exporter
   block:
-    - name: Validate prometheus-postgres-exporter configuration
+    - name: Validate Prometheus Postgres exporter configuration
       when: prometheus_postgres_exporter_enabled | bool
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
     - name: Install prometheus-postgres-exporter
       when: prometheus_postgres_exporter_enabled | bool
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/install.yml"
 
-- name: Perform prometheus-postgres-exporter uninstallation tasks
+- name: Perform Prometheus Postgres exporter uninstallation tasks
   tags:
     - setup-all
     - setup-prometheus-postgres-exporter
