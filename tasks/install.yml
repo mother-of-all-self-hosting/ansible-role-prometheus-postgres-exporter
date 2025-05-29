@@ -3,12 +3,11 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 ---
-
 - name: Ensure prometheus-postgres-exporter path exist
   ansible.builtin.file:
     path: "{{ prometheus_postgres_exporter_base_path }}"
     state: directory
-    mode: 0700
+    mode: "0700"
     owner: "{{ prometheus_postgres_exporter_uid }}"
     group: "{{ prometheus_postgres_exporter_gid }}"
 
@@ -18,7 +17,7 @@
     dest: "{{ prometheus_postgres_exporter_base_path }}/{{ item }}"
     owner: "{{ prometheus_postgres_exporter_uid }}"
     group: "{{ prometheus_postgres_exporter_gid }}"
-    mode: 0640
+    mode: "0640"
   with_items:
     - env
     - labels
@@ -45,4 +44,4 @@
   ansible.builtin.template:
     src: "{{ role_path }}/templates/systemd/prometheus-postgres-exporter.service.j2"
     dest: "{{ devture_systemd_docker_base_systemd_path }}/{{ prometheus_postgres_exporter_identifier }}.service"
-    mode: 0644
+    mode: "0644"
