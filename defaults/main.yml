@@ -69,7 +69,7 @@ prometheus_postgres_exporter_container_labels_traefik_entrypoints: web-secure
 prometheus_postgres_exporter_container_labels_traefik_tls: "{{ prometheus_postgres_exporter_container_labels_traefik_entrypoints != 'web' }}"
 prometheus_postgres_exporter_container_labels_traefik_tls_certResolver: default  # noqa var-naming
 prometheus_postgres_exporter_container_labels_metrics_middleware_basic_auth_enabled: false
-# See: https://doc.traefik.io/traefik/middlewares/http/basicauth/#users
+# See: https://doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/basicauth/
 prometheus_postgres_exporter_container_labels_metrics_middleware_basic_auth_users: ''
 
 # prometheus_postgres_exporter_container_labels_additional_labels contains a multiline string with additional labels to add to the container label file.
