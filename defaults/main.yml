@@ -82,7 +82,9 @@ prometheus_postgres_exporter_container_labels_metrics_middleware_basic_auth_user
 prometheus_postgres_exporter_container_labels_additional_labels: ''
 
 # A list of extra arguments to pass to the container
-prometheus_postgres_exporter_container_extra_arguments: []
+prometheus_postgres_exporter_container_extra_arguments: "{{ prometheus_postgres_exporter_container_extra_arguments_auto + prometheus_postgres_exporter_container_extra_arguments_custom }}"
+prometheus_postgres_exporter_container_extra_arguments_auto: []
+prometheus_postgres_exporter_container_extra_arguments_custom: []
 
 # List of systemd services that Prometheus Postgres Exporter systemd service depends on
 prometheus_postgres_exporter_systemd_required_services_list: "{{ prometheus_postgres_exporter_systemd_required_services_list_default + prometheus_postgres_exporter_systemd_required_services_list_auto + prometheus_postgres_exporter_systemd_required_services_list_custom }}"
