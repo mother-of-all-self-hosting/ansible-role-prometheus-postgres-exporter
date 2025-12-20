@@ -118,6 +118,9 @@ prometheus_postgres_exporter_env_variable_data_source_name: "postgresql://{{ pro
 prometheus_postgres_exporter_dashboard_urls:
   - "https://grafana.com/api/dashboards/9628/revisions/7/download"
 
+# Specify the timezone
+prometheus_postgres_exporter_environment_variables_tz: UTC
+
 # Additional environment variables to pass to the container
 #
 # Example:
