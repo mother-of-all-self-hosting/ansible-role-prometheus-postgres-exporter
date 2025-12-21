@@ -84,7 +84,7 @@ prometheus_postgres_exporter_container_labels_additional_labels: "{{ prometheus_
 prometheus_postgres_exporter_container_labels_additional_labels_auto: {}
 prometheus_postgres_exporter_container_labels_additional_labels_custom: {}
 
-# A list of extra arguments to pass to the container
+# A list of extra arguments to pass to the container (`docker create` command)
 prometheus_postgres_exporter_container_extra_arguments: "{{ prometheus_postgres_exporter_container_extra_arguments_auto + prometheus_postgres_exporter_container_extra_arguments_custom }}"
 prometheus_postgres_exporter_container_extra_arguments_auto: []
 prometheus_postgres_exporter_container_extra_arguments_custom: []
