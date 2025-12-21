@@ -27,7 +27,7 @@ prometheus_postgres_exporter_gid: ""
 # The hostname at which Prometheus Postgres Exporter exporter is served.
 prometheus_postgres_exporter_hostname: ""
 
-# The path at which Prometheus Postgres Exporter exporter is exposed.
+# The path at which Prometheus Postgres Exporter exporter is served.
 # This value must either be `/` or not end with a slash.
 prometheus_postgres_exporter_path_prefix: "/metrics/postgres-exporter"
 
