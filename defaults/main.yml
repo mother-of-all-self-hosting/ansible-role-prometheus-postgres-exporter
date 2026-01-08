@@ -77,7 +77,7 @@ prometheus_postgres_exporter_container_labels_metrics_middleware_basic_auth_user
 # To add your own custom labels, use `prometheus_postgres_exporter_container_labels_additional_labels_custom`
 #
 # Example:
-# prometheus_postgres_exporter_container_labels_additional_labels_custom: |
+# prometheus_postgres_exporter_container_labels_additional_labels_custom:
 #   - my.label=1
 #   - another.label="here"
 prometheus_postgres_exporter_container_labels_additional_labels: "{{ prometheus_postgres_exporter_container_labels_additional_labels_auto + prometheus_postgres_exporter_container_labels_additional_labels_custom }}"
