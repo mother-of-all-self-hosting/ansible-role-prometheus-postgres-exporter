@@ -38,13 +38,13 @@ prometheus_postgres_exporter_container_image_registry_prefix_upstream: "{{ prome
 prometheus_postgres_exporter_container_image_registry_prefix_upstream_default: quay.io/
 prometheus_postgres_exporter_container_image_force_pull: "{{ prometheus_postgres_exporter_container_image.endswith(':latest') }}"
 
+# The base container network. It will be auto-created by this role if it doesn't exist already.
+prometheus_postgres_exporter_container_network: "{{ prometheus_postgres_exporter_identifier }}"
+
 # Controls whether the container exposes its HTTP port (tcp/9187 in the container).
 #
 # Takes an "<ip>:<port>" value (e.g. "127.0.0.1:9187"), just a port number or an empty string to not expose.
 prometheus_postgres_exporter_container_http_host_bind_port: ""
-
-# The base container network. It will be auto-created by this role if it doesn't exist already.
-prometheus_postgres_exporter_container_network: "{{ prometheus_postgres_exporter_identifier }}"
 
 # The port number in the container
 prometheus_postgres_exporter_container_http_port: 9187
