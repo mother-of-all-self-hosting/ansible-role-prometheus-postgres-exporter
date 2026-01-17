@@ -47,7 +47,7 @@ prometheus_postgres_exporter_container_http_host_bind_port: ""
 prometheus_postgres_exporter_container_network: "{{ prometheus_postgres_exporter_identifier }}"
 
 # The port number in the container
-prometheus_postgres_exporter_port: 9187
+prometheus_postgres_exporter_container_http_port: 9187
 
 # A list of additional container networks that the container would be connected to.
 # The role does not create these networks, so make sure they already exist.
@@ -113,7 +113,7 @@ prometheus_postgres_exporter_database_ssl: false
 prometheus_postgres_exporter_env_variable_pg_exporter_auto_discover_databases: true
 
 # Controls the PG_EXPORTER_WEB_LISTEN_ADDRESS environment variable
-prometheus_postgres_exporter_env_variable_pg_exporter_web_listen_address: ":{{ prometheus_postgres_exporter_port }}"
+prometheus_postgres_exporter_env_variable_pg_exporter_web_listen_address: ":{{ prometheus_postgres_exporter_container_http_port }}"
 
 # Controls the DATA_SOURCE_NAME environment variable
 prometheus_postgres_exporter_env_variable_data_source_name: "postgresql://{{ prometheus_postgres_exporter_database_username }}:{{ prometheus_postgres_exporter_database_password }}@{{ prometheus_postgres_exporter_database_hostname }}:{{ prometheus_postgres_exporter_database_port }}/{{ prometheus_postgres_exporter_database_name }}{{ '?sslmode=disable' if not prometheus_postgres_exporter_database_ssl else '' }}"
