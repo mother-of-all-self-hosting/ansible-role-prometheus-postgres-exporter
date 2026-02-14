@@ -51,6 +51,7 @@
     name: "{{ prometheus_postgres_exporter_container_network }}"
     driver: bridge
     driver_options: "{{ devture_systemd_docker_base_container_networks_driver_options }}"
+  register: prometheus_postgres_exporter_network_creation_result
 
 - name: Ensure Prometheus Postgres exporter container network is created via ansible.builtin.command
   when: devture_systemd_docker_base_container_network_creation_method == 'command'
@@ -60,9 +61,9 @@
       {% if devture_systemd_docker_base_ipv6_enabled %}--ipv6{% endif %}
       {{ devture_systemd_docker_base_container_networks_driver_options_string }}
       {{ prometheus_postgres_exporter_container_network }}
-  register: network_creation_result
-  changed_when: network_creation_result.rc == 0
-  failed_when: network_creation_result.rc != 0 and 'already exists' not in network_creation_result.stderr
+  register: prometheus_postgres_exporter_network_creation_result
+  changed_when: prometheus_postgres_exporter_network_creation_result.rc == 0
+  failed_when: prometheus_postgres_exporter_network_creation_result.rc != 0 and 'already exists' not in prometheus_postgres_exporter_network_creation_result.stderr
 
 - name: Ensure Prometheus Postgres exporter systemd service is present
   ansible.builtin.template:
