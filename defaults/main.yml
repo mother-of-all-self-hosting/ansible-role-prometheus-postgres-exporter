@@ -65,7 +65,7 @@ prometheus_postgres_exporter_container_additional_networks_custom: []
 # See `../templates/labels.j2` for details.
 #
 # To inject your own other container labels, see `prometheus_postgres_exporter_container_labels_additional_labels_custom`.
-prometheus_postgres_exporter_container_labels_metrics_enabled: true
+prometheus_postgres_exporter_container_labels_metrics_enabled: false
 prometheus_postgres_exporter_container_labels_metrics_docker_network: "{{ prometheus_postgres_exporter_container_network }}"
 prometheus_postgres_exporter_container_labels_metrics_rule: "Host(`{{ prometheus_postgres_exporter_hostname }}`) && PathPrefix(`{{ prometheus_postgres_exporter_path_prefix | quote }}`)"
 prometheus_postgres_exporter_container_labels_metrics_entrypoints: web-secure
