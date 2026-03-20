@@ -29,6 +29,7 @@
     - { "old": "prometheus_postgres_exporter_docker_image_force_pull", "new": "prometheus_postgres_exporter_container_image_force_pull" }
     - "old": "prometheus_postgres_exporter_environment_variables_extension"
       "new": "prometheus_postgres_exporter_environment_variables_additional_variables"
+    - { "old": "prometheus_postgres_exporter_database_ssl", "new": "prometheus_postgres_exporter_database_sslmode" }
 
 - name: (Deprecation) Catch and report renamed variables for Traefik labels
   ansible.builtin.fail:
@@ -51,3 +52,4 @@
     - prometheus_postgres_exporter_container_network
     - prometheus_postgres_exporter_path_prefix
     - prometheus_postgres_exporter_database_hostname
+    - prometheus_postgres_exporter_database_password
