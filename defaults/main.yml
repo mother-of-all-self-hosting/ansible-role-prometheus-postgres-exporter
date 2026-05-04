@@ -36,7 +36,6 @@ prometheus_postgres_exporter_container_image_tag: "{{ prometheus_postgres_export
 prometheus_postgres_exporter_container_image_registry_prefix: "{{ prometheus_postgres_exporter_container_image_registry_prefix_upstream }}"
 prometheus_postgres_exporter_container_image_registry_prefix_upstream: "{{ prometheus_postgres_exporter_container_image_registry_prefix_upstream_default }}"
 prometheus_postgres_exporter_container_image_registry_prefix_upstream_default: quay.io/
-prometheus_postgres_exporter_container_image_force_pull: "{{ prometheus_postgres_exporter_container_image.endswith(':latest') }}"
 
 # The base container network. It will be auto-created by this role if it doesn't exist already.
 prometheus_postgres_exporter_container_network: "{{ prometheus_postgres_exporter_identifier }}"
