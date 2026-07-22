@@ -1,0 +1,53 @@
+# SPDX-FileCopyrightText: 2026 Suguru Hirahara
+# SPDX-FileCopyrightText: 2026 spatterlight
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+---
+- name: Verify Prometheus Postgres exporter systemd service
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Wait for Prometheus Postgres exporter service to become active (up to 180s)
+      ansible.builtin.systemd:
+        name: prometheus-postgres-exporter.service
+      register: prometheus_postgres_exporter_service
+      until: prometheus_postgres_exporter_service.status.ActiveState == 'active'
+      retries: 36
+      delay: 5
+
+    - name: Assert Prometheus Postgres exporter service is active
+      ansible.builtin.assert:
+        that: prometheus_postgres_exporter_service.status.ActiveState == 'active'
+        fail_msg: "prometheus-postgres-exporter.service not active ({{ prometheus_postgres_exporter_service.status.ActiveState }})"
+        success_msg: "prometheus-postgres-exporter.service is active"
+
+    - name: Retrieve Prometheus Postgres exporter service log for debugging
+      when: prometheus_postgres_exporter_debug_service_enabled | bool
+      ansible.builtin.command:
+        cmd: journalctl -xeu prometheus-postgres-exporter.service
+      changed_when: false
+
+    - name: Wait for Prometheus Postgres exporter HTTP endpoint to respond (up to 10m)
+      ansible.builtin.uri:
+        url: "http://localhost:9187/metrics"
+        method: GET
+        status_code: [200, 302]
+        follow_redirects: none
+      register: prometheus_postgres_exporter_endpoint
+      until: prometheus_postgres_exporter_endpoint.status in [200, 302]
+      retries: 120
+      delay: 5
+
+    - name: Assert Prometheus Postgres exporter HTTP endpoint responds
+      ansible.builtin.assert:
+        that: prometheus_postgres_exporter_endpoint.status in [200, 302]
+        fail_msg: "Prometheus Postgres exporter did not respond as expected ({{ prometheus_postgres_exporter_endpoint.status | default('no response') }})"
+        success_msg: "Prometheus Postgres exporter responded with {{ prometheus_postgres_exporter_endpoint.status }}"
+
+    - name: Show Prometheus Postgres exporter systemd service status summary
+      ansible.builtin.debug:
+        msg:
+          - "Prometheus Postgres exporter systemd: {{ prometheus_postgres_exporter_service.status.ActiveState }}"
+          - "Prometheus Postgres exporter HTTP: {{ prometheus_postgres_exporter_endpoint.status }}"
