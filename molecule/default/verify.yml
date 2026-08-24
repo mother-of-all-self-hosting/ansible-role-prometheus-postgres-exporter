@@ -321,6 +321,10 @@
               and reports pg_up 0 with no database series, so the assertions above are about a real connection
 
       always:
+        # Tolerant of the container not being there, because this also runs
+        # when the task that was supposed to start it is what failed. `docker
+        # rm` exits non-zero on an unknown container, and a failure here would
+        # then be the last thing in the log rather than the one worth reading.
         - name: Ensure the dead-database Prometheus Postgres exporter is removed
           ansible.builtin.command:
             argv:
@@ -329,6 +333,7 @@
               - --force
               - "{{ prometheus_postgres_exporter_molecule_starved_container_name }}"
           changed_when: true
+          failed_when: false
 
     - name: Show Prometheus Postgres exporter verification summary
       ansible.builtin.debug:
