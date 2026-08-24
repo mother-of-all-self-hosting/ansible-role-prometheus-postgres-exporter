@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Suguru Hirahara
 # SPDX-FileCopyrightText: 2026 spatterlight
+# SPDX-FileCopyrightText: 2026 Slavi Pantaleev
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -32,7 +33,7 @@
 
     - name: Ensure Postgres systemd service is started
       ansible.builtin.systemd_service:
-        name: postgres.service
+        name: "{{ prometheus_postgres_exporter_molecule_postgres_hostname }}.service"
         state: started
 
     - name: Ensure Prometheus Postgres exporter systemd service is started

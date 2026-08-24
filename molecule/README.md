@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2018-2025 Slavi Pantaleev
+SPDX-FileCopyrightText: 2018-2026 Slavi Pantaleev
 SPDX-FileCopyrightText: 2019-2022 Aaron Raimist
 SPDX-FileCopyrightText: 2019-2023 MDAD project contributors
 SPDX-FileCopyrightText: 2023 QEDeD
@@ -47,7 +47,9 @@ Currently there is one testing scenario available.
 
 ### `default`
 
-Tests a standard Prometheus Postgres exporter installation.
+Stands up a real Postgres alongside the exporter, on the container network the role creates, and then checks what the exporter actually does with it.
+
+The exporter serves a well-formed `/metrics` endpoint — build information, version and all — from the moment it binds, whether or not it has ever reached a database, so an HTTP 200 proves nothing on its own. The scenario ends by starting a second exporter from the same image, reading the very same env file, with nothing changed but a DSN aimed at a dead port: it serves just as happily while reporting `pg_up 0` and no database series at all. Everything asserted about the real one is chosen to be something that negative control cannot produce.
 
 ## Running
 
