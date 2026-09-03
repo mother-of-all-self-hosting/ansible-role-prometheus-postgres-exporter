@@ -216,7 +216,7 @@
     # the role's version variable carries one. Any leading `v` is normalized
     # away on both sides, so that this keeps holding if either side ever stops
     # carrying one.
-    - name: Assert the running Prometheus Postgres exporter is the version the role asks for
+    - name: Assert the running Prometheus Postgres exporter is the version this role installs
       ansible.builtin.assert:
         that: >-
           (prometheus_postgres_exporter_reported_version | regex_replace('^v', ''))
