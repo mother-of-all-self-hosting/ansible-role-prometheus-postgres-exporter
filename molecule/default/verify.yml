@@ -216,10 +216,8 @@
         that: >-
           (prometheus_postgres_exporter_reported_version | regex_replace('^v', ''))
           == (prometheus_postgres_exporter_defaults.prometheus_postgres_exporter_version | regex_replace('^v', ''))
-        fail_msg: >-
-          Prometheus Postgres exporter reports version {{ prometheus_postgres_exporter_reported_version | default('none') }},
-          but the role asks for {{ prometheus_postgres_exporter_defaults.prometheus_postgres_exporter_version }}
-        success_msg: "Prometheus Postgres exporter reports version {{ prometheus_postgres_exporter_reported_version }}"
+        fail_msg: "Prometheus Postgres exporter reports {{ prometheus_postgres_exporter_reported_version | default('none') }}, expected {{ prometheus_postgres_exporter_defaults.prometheus_postgres_exporter_version }}"
+        success_msg: "Prometheus Postgres exporter reports {{ prometheus_postgres_exporter_reported_version }}"
 
     # Everything above talks to the exporter over its published port. This looks
     # at the container itself, and is what says that the network the role was
