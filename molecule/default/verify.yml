@@ -330,7 +330,7 @@
           changed_when: true
           failed_when: false
 
-    - name: Show Prometheus Postgres exporter verification summary
+    - name: Show the Prometheus Postgres exporter verification summary
       ansible.builtin.debug:
         msg:
           - "Prometheus Postgres exporter systemd: {{ prometheus_postgres_exporter_service.status.ActiveState }}"
