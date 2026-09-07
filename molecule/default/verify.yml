@@ -205,8 +205,7 @@
 
     # `prometheus_postgres_exporter_version` carries a leading `v` (`v3.14.0`) but the binary
     # reports the bare version (`3.14.0`). Any leading `v` is normalized
-    # away on both sides, so that this keeps holding if either side ever stops
-    # carrying one.
+    # away on both sides, so that this keeps holding if either side ever changes.
     - name: Assert the running Prometheus Postgres exporter is the version this role installs
       ansible.builtin.assert:
         that: >-
