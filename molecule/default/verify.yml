@@ -184,10 +184,6 @@
           Prometheus Postgres exporter publishes catalog-derived metrics for {{ prometheus_postgres_exporter_molecule_database_name }},
           with its own connection accounted for among that database's backends
 
-    # Tying the running version to `prometheus_postgres_exporter_version` is
-    # what makes this scenario a real test of the version that Renovate bumps:
-    # a bump that produces an unusable image cannot pass here.
-    #
     # The label is matched with a leading `{` or `,` so that `goversion`, which
     # sits on the same series and would otherwise be picked up by a bare
     # `version="` match, cannot be mistaken for it. The lines are narrowed to
