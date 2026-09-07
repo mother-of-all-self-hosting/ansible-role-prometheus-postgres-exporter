@@ -203,8 +203,8 @@
             )
           }}
 
-    # The exporter reports its version without a leading `v` (`0.20.1`), while
-    # the role's version variable carries one. Any leading `v` is normalized
+    # `prometheus_postgres_exporter_version` carries a leading `v` (`v3.14.0`) but the binary
+    # reports the bare version (`3.14.0`). Any leading `v` is normalized
     # away on both sides, so that this keeps holding if either side ever stops
     # carrying one.
     - name: Assert the running Prometheus Postgres exporter is the version this role installs
