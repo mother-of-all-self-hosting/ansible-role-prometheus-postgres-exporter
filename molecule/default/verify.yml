@@ -230,10 +230,7 @@
     # one this file names for itself.
     - name: Query the running Prometheus Postgres exporter container
       ansible.builtin.command:
-        argv:
-          - docker
-          - inspect
-          - "{{ prometheus_postgres_exporter_defaults.prometheus_postgres_exporter_identifier }}"
+        cmd: docker inspect {{ prometheus_postgres_exporter_defaults.prometheus_postgres_exporter_identifier }}
       register: prometheus_postgres_exporter_inspect
       changed_when: false
 
@@ -268,16 +265,14 @@
       block:
         - name: Start a Prometheus Postgres exporter pointed at a dead database
           ansible.builtin.command:
-            argv:
-              - docker
-              - run
-              - --detach
-              - --name={{ prometheus_postgres_exporter_molecule_starved_container_name }}
-              - --network={{ prometheus_postgres_exporter_container_network }}
-              - --env-file={{ prometheus_postgres_exporter_base_path }}/env
-              - --env=DATA_SOURCE_NAME=postgresql://{{ prometheus_postgres_exporter_database_username }}:{{ prometheus_postgres_exporter_database_password }}@{{ prometheus_postgres_exporter_molecule_postgres_hostname }}:{{ prometheus_postgres_exporter_molecule_dead_port }}/{{ prometheus_postgres_exporter_molecule_database_name }}?sslmode=disable
-              - --publish=127.0.0.1:{{ prometheus_postgres_exporter_molecule_starved_bind_port }}:{{ prometheus_postgres_exporter_defaults.prometheus_postgres_exporter_container_http_port }}
-              - "{{ prometheus_postgres_exporter_container_image_running }}"
+            cmd: >-
+              docker run -d
+              --name={{ prometheus_postgres_exporter_molecule_starved_container_name }}
+              --network={{ prometheus_postgres_exporter_container_network }}
+              --env-file={{ prometheus_postgres_exporter_base_path }}/env
+              --env=DATA_SOURCE_NAME=postgresql://{{ prometheus_postgres_exporter_database_username }}:{{ prometheus_postgres_exporter_database_password }}@{{ prometheus_postgres_exporter_molecule_postgres_hostname }}:{{ prometheus_postgres_exporter_molecule_dead_port }}/{{ prometheus_postgres_exporter_molecule_database_name }}?sslmode=disable
+              --publish=127.0.0.1:{{ prometheus_postgres_exporter_molecule_starved_bind_port }}:{{ prometheus_postgres_exporter_defaults.prometheus_postgres_exporter_container_http_port }}
+              {{ prometheus_postgres_exporter_container_image_running }}
           changed_when: true
 
         - name: Wait for the dead-database Prometheus Postgres exporter to serve metrics (up to 60s)
@@ -321,11 +316,7 @@
         # then be the last thing in the log rather than the one worth reading.
         - name: Ensure the dead-database Prometheus Postgres exporter is removed
           ansible.builtin.command:
-            argv:
-              - docker
-              - rm
-              - --force
-              - "{{ prometheus_postgres_exporter_molecule_starved_container_name }}"
+            cmd: docker rm --force {{ prometheus_postgres_exporter_molecule_starved_container_name }}
           changed_when: true
           failed_when: false
 
