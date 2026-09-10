@@ -25,6 +25,8 @@
     prometheus_postgres_exporter_molecule_server_label: "{{ prometheus_postgres_exporter_molecule_postgres_hostname }}:{{ prometheus_postgres_exporter_molecule_postgres_port }}"
 
   tasks:
+    - name: Verify that Prometheus Postgres exporter works
+      block:
     # The role is not included in this playbook, so its defaults are not in
     # scope. Reading defaults/main.yml directly ties the version assertion
     # below.
@@ -331,3 +333,19 @@
           - "Prometheus Postgres exporter database size: {{ prometheus_postgres_exporter_database_size_series[0] }}"
           - "Prometheus Postgres exporter container networks: {{ prometheus_postgres_exporter_container_networks | join(', ') }}"
           - "Prometheus Postgres exporter negative control: {{ prometheus_postgres_exporter_starved_metrics_lines | select('match', 'pg_up ') | list | join(', ') }}"
+
+      rescue:
+        # Whatever went wrong, the reason is almost always in the systemd service log.
+        - name: Retrieve the Prometheus Postgres exporter systemd service log
+          ansible.builtin.command:
+            cmd: journalctl --no-pager --output=cat --unit=prometheus-postgres-exporter.service
+          register: prometheus_postgres_exporter_service_log
+          changed_when: false
+
+        - name: Show the Prometheus Postgres exporter systemd service log
+          ansible.builtin.debug:
+            var: prometheus_postgres_exporter_service_log.stdout_lines
+
+        - name: Fail because verification did not pass
+          ansible.builtin.fail:
+            msg: "Prometheus Postgres exporter verification failed. The systemd service log is printed above."
