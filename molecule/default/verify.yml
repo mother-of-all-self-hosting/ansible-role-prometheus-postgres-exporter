@@ -184,6 +184,15 @@
                 | select('search', 'datname="' ~ prometheus_postgres_exporter_molecule_database_name ~ '"')
                 | list
               }}
+            # With database discovery enabled (the role's default), exporter
+            # v0.21.0+ adds a `datname` label to this series, so it is matched
+            # with or without one.
+            prometheus_postgres_exporter_stat_database_success_series: >-
+              {{
+                prometheus_postgres_exporter_metrics_lines
+                | select('match', 'pg_scrape_collector_success[{]collector="stat_database"[,}]')
+                | list
+              }}
 
         - name: Assert Prometheus Postgres exporter publishes metrics derived from the scenario's database
           ansible.builtin.assert:
@@ -192,10 +201,12 @@
               - (prometheus_postgres_exporter_database_series[0].split('} ') | last | float) > 0
               - prometheus_postgres_exporter_database_size_series | length == 1
               - (prometheus_postgres_exporter_database_size_series[0].split('} ') | last | float) > 0
-              - "'pg_scrape_collector_success{collector=\"stat_database\"} 1' in prometheus_postgres_exporter_metrics_lines"
+              - prometheus_postgres_exporter_stat_database_success_series | length > 0
+              - prometheus_postgres_exporter_stat_database_success_series | reject('match', '.*[}] 1$') | list | length == 0
             fail_msg: >-
               Prometheus Postgres exporter does not publish metrics for {{ prometheus_postgres_exporter_molecule_database_name }}
-              (backends: {{ prometheus_postgres_exporter_database_series }}, size: {{ prometheus_postgres_exporter_database_size_series }})
+              (backends: {{ prometheus_postgres_exporter_database_series }}, size: {{ prometheus_postgres_exporter_database_size_series }},
+              stat_database collector success: {{ prometheus_postgres_exporter_stat_database_success_series }})
             success_msg: >-
               Prometheus Postgres exporter publishes catalog-derived metrics for {{ prometheus_postgres_exporter_molecule_database_name }},
               with its own connection accounted for among that database's backends
